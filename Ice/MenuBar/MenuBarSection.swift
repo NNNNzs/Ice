@@ -36,6 +36,10 @@ final class MenuBarSection {
         var localized: LocalizedStringKey {
             LocalizedStringKey(displayString)
         }
+
+        var localizedDisplayString: String {
+            NSLocalizedString(displayString, comment: "")
+        }
     }
 
     /// The name of the section.

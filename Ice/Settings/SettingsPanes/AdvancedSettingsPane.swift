@@ -14,12 +14,12 @@ struct AdvancedSettingsPane: View {
         appState.menuBarManager
     }
 
-    private func formattedToSeconds(_ interval: TimeInterval) -> LocalizedStringKey {
+    private func formattedToSeconds(_ interval: TimeInterval) -> String {
         let formatted = interval.formatted()
         return if interval == 1 {
-            LocalizedStringKey(formatted + " second")
+            Localization.format("%@ second", formatted)
         } else {
-            LocalizedStringKey(formatted + " seconds")
+            Localization.format("%@ seconds", formatted)
         }
     }
 
@@ -107,11 +107,10 @@ struct AdvancedSettingsPane: View {
     private var showOnHoverDelay: some View {
         LabeledContent {
             IceSlider(
-                formattedToSeconds(settings.showOnHoverDelay),
                 value: $settings.showOnHoverDelay,
                 in: 0...1,
                 step: 0.1
-            )
+            ) { Text(formattedToSeconds(settings.showOnHoverDelay)) }
         } label: {
             Text("Show on hover delay")
                 .frame(minWidth: maxSliderLabelWidth, alignment: .leading)
@@ -126,11 +125,10 @@ struct AdvancedSettingsPane: View {
     private var tempShowInterval: some View {
         LabeledContent {
             IceSlider(
-                formattedToSeconds(settings.tempShowInterval),
                 value: $settings.tempShowInterval,
                 in: 0...60,
                 step: 1
-            )
+            ) { Text(formattedToSeconds(settings.tempShowInterval)) }
         } label: {
             Text("Temporarily shown item delay")
                 .frame(minWidth: maxSliderLabelWidth, alignment: .leading)
@@ -158,7 +156,7 @@ struct AdvancedSettingsPane: View {
                     }
                 }
             } label: {
-                Text(permission.title)
+                Text(Localization.string(permission.title))
             }
             .frame(height: 22)
         }

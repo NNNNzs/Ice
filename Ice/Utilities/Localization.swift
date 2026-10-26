@@ -1,0 +1,20 @@
+//
+//  Localization.swift
+//  Ice
+//
+
+import Foundation
+
+enum Localization {
+    static func string(_ key: String) -> String {
+        NSLocalizedString(key, comment: "")
+    }
+
+    static func format(_ key: String, _ arguments: CVarArg...) -> String {
+        String(
+            format: NSLocalizedString(key, comment: ""),
+            locale: Locale.current,
+            arguments: arguments
+        )
+    }
+}

@@ -102,11 +102,11 @@ struct HotkeyRecorder<Label: View>: View {
     @ViewBuilder
     private var trailingSegmentLabel: some View {
         let (name, label, padding) = if model.isRecording {
-            ("escape", "Cancel", 6.0)
+            ("escape", Localization.string("Cancel"), 6.0)
         } else if model.hotkey.isEnabled {
-            ("xmark", "Clear", 7.5)
+            ("xmark", Localization.string("Clear"), 7.5)
         } else {
-            ("record.circle", "Record", 5.5)
+            ("record.circle", Localization.string("Record"), 5.5)
         }
         Image(systemName: name)
             .resizable()

@@ -24,12 +24,12 @@ struct GeneralSettingsPane: View {
         }
     }
 
-    private var rehideIntervalKey: LocalizedStringKey {
+    private var rehideIntervalLabel: String {
         let formatted = settings.rehideInterval.formatted()
         if settings.rehideInterval == 1 {
-            return LocalizedStringKey(formatted + " second")
+            return Localization.format("%@ second", formatted)
         } else {
-            return LocalizedStringKey(formatted + " seconds")
+            return Localization.format("%@ seconds", formatted)
         }
     }
 
@@ -60,7 +60,9 @@ struct GeneralSettingsPane: View {
 
     @ViewBuilder
     private var appOptions: some View {
-        LaunchAtLogin.Toggle()
+        LaunchAtLogin.Toggle {
+            Text("Launch at login")
+        }
     }
 
     // MARK: Ice Icon Options
@@ -155,7 +157,7 @@ struct GeneralSettingsPane: View {
     @ViewBuilder
     private func iceIconMenuItem(for imageSet: ControlItemImageSet) -> some View {
         Label {
-            Text(imageSet.name.rawValue)
+            Text(Localization.string(imageSet.name.rawValue))
         } icon: {
             if let nsImage = imageSet.hidden.nsImage(for: appState) {
                 switch imageSet.name {
@@ -253,11 +255,10 @@ struct GeneralSettingsPane: View {
 
             if case .timed = settings.rehideStrategy {
                 IceSlider(
-                    rehideIntervalKey,
                     value: $settings.rehideInterval,
                     in: 0...30,
                     step: 1
-                )
+                ) { Text(rehideIntervalLabel) }
             }
         }
     }

@@ -312,13 +312,13 @@ private struct MenuBarSearchContentView: View {
                 }
 
                 let headerItem = ListItem.header(id: .header(name)) {
-                    Text(name.displayString)
+                    Text(name.localized)
                         .fontWeight(.semibold)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 10)
                 }
-                items.append(SearchItem(headerItem, name.displayString))
+                items.append(SearchItem(headerItem, name.localizedDisplayString))
 
                 for item in itemManager.itemCache.managedItems(for: name).reversed() {
                     let listItem = ListItem.item(id: .item(item.tag)) {
@@ -415,7 +415,7 @@ private struct ShowItemButton: View {
     var body: some View {
         Button(action: action) {
             HStack {
-                Text("\(Bridging.isWindowOnScreen(item.windowID) ? "Click" : "Show") Item")
+                Text(LocalizedStringKey(Bridging.isWindowOnScreen(item.windowID) ? "Click Item" : "Show Item"))
                     .padding(.leading, 5)
 
                 Image(systemName: "return")
